@@ -1,13 +1,14 @@
+import java.util.Arrays;
+
 public class ArrayIntro {
     public static void main(String[] args) {
         int[] a = {1,3,4};
-        System.out.println(a);
+        System.out.println("Og array a: " + Arrays.toString(a));
 
         int[] b = new int[4];
-        System.out.println(b);
+        System.out.println("Og array b: " + Arrays.toString(b));
         b = a;
-        System.out.println(b);
-        for (int i : b) System.out.println(i);
+        System.out.println("New array b: " + Arrays.toString(b));
 
         //let's say we want to insert 2 between 1 and 3
         System.out.println("Inserting 2 between 1 and 3");
@@ -22,6 +23,7 @@ public class ArrayIntro {
             else newArr[i] = b[i-1];
         }
 
-        for (int i : newArr) System.out.println(i);
+        b = newArr;
+        System.out.println("New array b after insertion: " + Arrays.toString(b));
     }
 }
