@@ -13,9 +13,9 @@ public class Searching {
 
     public static int binarySearch(int[] arr, int n){
         /*
-            This is only applicable in sorted arrays
-            Time Complexity:- O(logn)
-            Space Complexity:- o(1)
+            * This is only applicable in sorted arrays
+            * Time Complexity:- O(logn)
+            * Space Complexity:- o(1)
         */
         int high = arr.length - 1;
         int low  = 0;
