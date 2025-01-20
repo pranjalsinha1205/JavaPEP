@@ -23,8 +23,13 @@ public class Sorting {
 
         int[] d = {9, 6, 5, 0, 8, 2, 4, 7};
         System.out.println("\nOriginal d: " + Arrays.toString(d));
-        selectionSort(d);
-        System.out.println("Quicksort sort: " + Arrays.toString(d));
+        quickSort(d, 0, d.length - 1);
+        System.out.println("Quick sort: " + Arrays.toString(d));
+
+        int[] e = {9, 6, 5, 0, 8, 2, 4, 7};
+        System.out.println("\nOriginal e: " + Arrays.toString(e));
+        mergeSort(e, 0, e.length-1);
+        System.out.println("Merge sort: " + Arrays.toString(e));
     }
     public static void heapSort(int[] arr){
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
@@ -86,7 +91,84 @@ public class Sorting {
             }
         }
     }
-    public static void quickSort(int[] arr){
-        //todo
+    public static void quickSort(int[] arr, int low, int high){
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+    public static int partition(int[] arr, int low, int high) {
+        /*
+            sbse pehle ek pivot element lete hai jo usually first ya last hota hai
+            fir i set krte hain
+            fir j ko low se high - 1 index tk chalate hain
+            agar jth element pivot k chhote ya barabar hai to i ko increment aur
+            ith aur jth element ko swap kr lete hain
+            fir (i+1)th element ko pivot se swap krte hain
+            return kr dete hain uske baad hm i+1 ko
+        */
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+
+    public static void mergeSort(int[] arr, int low, int high){
+        if (low < high){
+            int mid = (high + low)/2;
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid+1, high);
+            merge(arr, low, mid, high);
+        }
+    }
+
+    public static void merge(int[] arr, int low, int mid, int high){
+        int n1 = mid - low + 1, n2 = high - mid;
+
+        int[] leftArray = new int[n1];
+        int[] rightArray = new int[n2];
+
+        for (int i = 0; i < n1; i++) leftArray[i] = arr[low + i];
+        for (int i = 0; i < n2; i++) rightArray[i] = arr[mid + i + 1];
+
+        int i = 0, j = 0;
+        int k = low;
+
+        while (i < n1 && j < n2) {
+            if (leftArray[i] <= rightArray[j]) {
+                arr[k] = leftArray[i];
+                i++;
+            } else {
+                arr[k] = rightArray[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            arr[k] = leftArray[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            arr[k] = rightArray[j];
+            j++;
+            k++;
+        }
     }
 }
